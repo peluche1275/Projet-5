@@ -1,5 +1,5 @@
 <?php
-namespace OCFram;
+namespace Framework;
 
 class HTTPRequest extends ApplicationComponent
 {

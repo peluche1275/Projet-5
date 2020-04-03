@@ -1,6 +1,6 @@
 <?php
 
-namespace OCFram;
+namespace Framework;
 
 session_start();
 

@@ -2,7 +2,7 @@
 
 namespace App\Frontend;
 
-use \OCFram\Application;
+use \Framework\Application;
 
 class FrontendApplication extends Application
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace OCFram;
+namespace Framework;
 
 abstract class Manager
 {
