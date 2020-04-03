@@ -18,9 +18,9 @@
   <div id="wrapper">
 
     <header id="header">
-      <div class="logo">
+      <!-- <div class="logo">
         <span class="icon fa-gem"></span>
-      </div>
+      </div> -->
       <div class="content">
         <div class="inner">
           <h1><a href="/">Le Super jeu</a></h1>
@@ -50,7 +50,7 @@
     </div>
 
     <footer id="footer">
-      <p class="copyright">&copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+      <p class="copyright"> Dev : Nathan ALTOMARE - Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
     </footer>
   </div>
   <!-- BG -->
