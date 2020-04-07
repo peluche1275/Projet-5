@@ -2,6 +2,7 @@
 <routes>
     <route url="/" module="connection" action="index" />
     <route url="/login" module="connection" action="connexion" />
+    <route url="/deconnexion" module="connection" action="deconnexion" />
     <route url="/inscription" module="connection" action="inscription" />
 </routes>
 <!-- <route url="/news-([0-9]+)\.html" module="News" action="show" vars="id"/> -->

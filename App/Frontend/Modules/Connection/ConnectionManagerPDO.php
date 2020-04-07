@@ -23,13 +23,17 @@ class ConnectionManagerPDO extends Manager
 
         $q = $this->dao->query($sql)->fetch();
 
+        $connect = false;
+
         if(password_verify($password,$q['passwd']))
         {
-            echo 'ça marche!';
+            $connect = true;
         }
         else
         {
-            echo'ça marche pas!';
+            $connect = false;
         }
+
+        return $connect;
     }
 }

@@ -30,12 +30,16 @@
       <nav>
         <ul>
           <li><a href="/">Accueil</a></li>
-          <li><a href="/login">Connexion</a></li>
-          <li><a href="/inscription">Inscription</a></li>
+          <?php if (!$user->isAuthenticated()) { ?>
+            <li><a href="/login">Connexion</a></li>
+            <li><a href="/inscription">Inscription</a></li>
+          <?php } ?>
           <li><a href="/contact">Contact</a></li>
           <?php if ($user->isAuthenticated()) { ?>
-
+            <li><a href="/deconnexion">Déconnexion</a></li>
           <?php } ?>
+
+
         </ul>
       </nav>
     </header>

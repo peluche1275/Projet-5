@@ -1,4 +1,4 @@
-<h2 class="major">Contact</h2>
+<h2 class="major">Inscription</h2>
 				<form method="post" action="">
 					<div class="fields">
 						<div class="field half">
