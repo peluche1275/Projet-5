@@ -37,13 +37,14 @@ class User
         $_SESSION[$attr] = $value;
     }
 
-    public function setAuthenticated($authenticated = true)
+    public function setAuthenticated($authenticated = true,$login)
     {
         if (!is_bool($authenticated)) {
             throw new \InvalidArgumentException('La valeur spécifiée à la méthode User::setAuthenticated() doit être un boolean');
         }
 
         $_SESSION['auth'] = $authenticated;
+        $_SESSION['nameAccount'] = $login;
     }
 
     public function setFlash($value)

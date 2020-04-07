@@ -34,11 +34,12 @@
             <li><a href="/login">Connexion</a></li>
             <li><a href="/inscription">Inscription</a></li>
           <?php } ?>
+          
           <li><a href="/contact">Contact</a></li>
           <?php if ($user->isAuthenticated()) { ?>
+            <li><a href="/moncompte">Mon compte</a></li>
             <li><a href="/deconnexion">Déconnexion</a></li>
           <?php } ?>
-
 
         </ul>
       </nav>
@@ -48,7 +49,6 @@
 
       <section>
         <?php if ($user->hasFlash()) echo '<p style="text-align: center;">', $user->getFlash(), '</p>'; ?>
-
         <?= $content ?>
       </section>
     </div>

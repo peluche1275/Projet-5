@@ -2,6 +2,7 @@
 <routes>
     <route url="/" module="connection" action="index" />
     <route url="/login" module="connection" action="connexion" />
+    <route url="/moncompte" module="connection" action="monCompte" />
     <route url="/deconnexion" module="connection" action="deconnexion" />
     <route url="/inscription" module="connection" action="inscription" />
 </routes>
