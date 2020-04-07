@@ -23,23 +23,24 @@ class ConnectionController extends BackController
         $manager = $this->managers->getManagerOf('Connection');
 
         if ($request->postExists('pseudo')) {
-            if ($request->postData('password') == $request->postData('password2')) 
-            {
+            if ($request->postData('password') == $request->postData('password2')) {
                 $pseudo = $request->postData('pseudo');
                 $password = password_hash($request->postData('password'), PASSWORD_DEFAULT);
                 $email = $request->postData('email');
                 $this->app->user()->setFlash('Inscription réalisée avec succès!');
 
                 $manager->inscription($pseudo, $password, $email);
-            } 
-            else 
-            {
+            } else {
                 $this->app->user()->setFlash('Les deux mots de passe ne correspondent pas');
             }
             $this->app->httpResponse()->redirect('.');
         }
     }
 
+    public function executeContact(HTTPRequest $request)
+    {
+
+    }
     public function executeConnexion(HTTPRequest $request)
     {
         $this->page->addVar('title', 'Inscription');
