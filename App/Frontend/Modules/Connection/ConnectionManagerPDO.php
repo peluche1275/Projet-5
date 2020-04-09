@@ -33,4 +33,21 @@ class ConnectionManagerPDO extends Manager
 
         return $connect;
     }
+
+    public function account($pseudo)
+    {
+        $sql = 'SELECT id, pseudo, avatar FROM compte WHERE pseudo ="' . $pseudo . '"';
+        $q = $this->dao->query($sql)->fetch();
+        $array = array('pseudo' => $q['pseudo'], 'id' => $q['id'], 'avatar' => $q['avatar']);
+        return $array;
+    }
+
+    public function updateAvatar($id, $extensionUpload)
+    {
+        $sql = 'UPDATE compte SET avatar = :avatar WHERE id = :id';
+        $this->dao->prepare($sql)->execute(array(
+            'avatar' => 'membres/avatars/' . $id . '.' . $extensionUpload,
+            'id' => $id
+        ));
+    }
 }

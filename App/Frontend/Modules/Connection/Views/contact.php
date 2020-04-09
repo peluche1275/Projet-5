@@ -18,4 +18,4 @@
             <li><input type="submit" value="Send Message" class="primary" /></li>
             <li><input type="reset" value="Reset" /></li>
         </ul>
-    </form>
+    </form> 
