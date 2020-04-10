@@ -10,7 +10,7 @@ class ConnectionManagerPDO extends Manager
     {
         $sql = 'SELECT COUNT(*) AS bool FROM compte WHERE pseudo LIKE "' . $pseudo . '"';
         $q = $this->dao->query($sql)->fetch();
-        return $q[bool];
+        return $q['bool'];
     }
 
     public function inscription($pseudo, $password, $email)
