@@ -12,17 +12,6 @@ class Account extends Entity
     protected $id;
     protected $avatar;
 
-    // CONSTRUCTOR //
-
-    public function __construct(array $donnees = [])
-    {
-        if (!empty($donnees)) {
-            $this->hydrate($donnees);
-        }
-    }
-
-    // METHOD //
-
     // GETTERS //
 
     public function pseudo()
