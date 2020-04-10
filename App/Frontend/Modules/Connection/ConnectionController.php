@@ -14,6 +14,11 @@ class ConnectionController extends BackController
     public function executeIndex()
     {
         $this->page->addVar('title', 'Accueil du jeu');
+        if ($this->app->user()->isAuthenticated()) {
+            $manager = $this->managers->getManagerOf('Connection');
+            $account = new Account($manager->account($_SESSION['nameAccount']));
+            $this->page->addVar('account', $account);
+        }
     }
 
     public function executeInscription(HTTPRequest $request)
@@ -27,20 +32,26 @@ class ConnectionController extends BackController
                 $pseudo = $request->postData('pseudo');
                 $password = password_hash($request->postData('password'), PASSWORD_DEFAULT);
                 $email = $request->postData('email');
-                $this->app->user()->setFlash('Inscription réalisée avec succès!');
 
-                $manager->inscription($pseudo, $password, $email);
+                if ($manager->verification($pseudo)) {
+                    $this->app->user()->setFlash('Ce pseudo existe déjà!');
+                    $this->app->httpResponse()->redirect('/inscription');
+                } else {
+                    $this->app->user()->setFlash('Inscription réalisée avec succès!');
+                    $manager->inscription($pseudo, $password, $email);
+                    $this->app->httpResponse()->redirect('/login');
+                }
             } else {
                 $this->app->user()->setFlash('Les deux mots de passe ne correspondent pas');
             }
-            $this->app->httpResponse()->redirect('.');
         }
     }
 
     public function executeContact(HTTPRequest $request)
     {
-        
+
     }
+
     public function executeConnexion(HTTPRequest $request)
     {
         $this->page->addVar('title', 'Inscription');
@@ -67,34 +78,24 @@ class ConnectionController extends BackController
         $account = new Account($manager->account($_SESSION['nameAccount']));
         $this->page->addVar('account', $account);
 
-        if(isset($_FILES['avatar']) AND !empty($_FILES['avatar']['name']))
-        {
+        if (isset($_FILES['avatar']) and !empty($_FILES['avatar']['name'])) {
             $tailleMax = 2097152;
-            $extensionsValides = array('jpg','jpeg','gif','png');
-            if($_FILES['avatar']['size'] <= $tailleMax)
-            {
-                $extensionUpload = strtolower(substr(strrchr($_FILES['avatar']['name'],'.'),1));
-                if(in_array($extensionUpload,$extensionsValides))
-                {
-                    $chemin = 'membres/avatars/' . $account->id(). '.'.$extensionUpload;
-                    $resultat = move_uploaded_file($_FILES['avatar']['tmp_name'],$chemin);
-                    if($resultat)
-                    {
-                        $manager->updateAvatar($account->id(),$extensionUpload);
+            $extensionsValides = array('jpg', 'jpeg', 'gif', 'png');
+            if ($_FILES['avatar']['size'] <= $tailleMax) {
+                $extensionUpload = strtolower(substr(strrchr($_FILES['avatar']['name'], '.'), 1));
+                if (in_array($extensionUpload, $extensionsValides)) {
+                    $chemin = 'membres/avatars/' . $account->id() . '.' . $extensionUpload;
+                    $resultat = move_uploaded_file($_FILES['avatar']['tmp_name'], $chemin);
+                    if ($resultat) {
+                        $manager->updateAvatar($account->id(), $extensionUpload);
                         $this->app->httpResponse()->redirect('/moncompte');
-                    }
-                    else
-                    {
+                    } else {
                         $this->app->user()->setFlash('Il y a eu une erreur durant l\'important de votre photo de profil.');
                     }
-                }
-                else
-                {
+                } else {
                     $this->app->user()->setFlash('Votre photo de profil doit être au format jpg, jpeg, gif ou png.');
                 }
-            }
-            else
-            {
+            } else {
                 $this->app->user()->setFlash('Votre photo de profil ne doit pas dépasser 2Mo.');
             }
         }

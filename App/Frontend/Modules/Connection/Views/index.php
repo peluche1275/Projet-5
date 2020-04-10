@@ -3,6 +3,5 @@
 <?php } ?>
 
 <?php if ($user->isAuthenticated()) { ?>
-    <p>Bienvenue <strong><?= $_SESSION['nameAccount'] ?> </strong> sur le jeu. </p>
-    
+    <p>Bienvenue <strong><?= $account->pseudo(); ?> </strong> sur le jeu. </p>
 <?php } ?>

@@ -6,13 +6,21 @@ use \Framework\Manager;
 
 class ConnectionManagerPDO extends Manager
 {
+    public function verification($pseudo)
+    {
+        $sql = 'SELECT COUNT(*) AS bool FROM compte WHERE pseudo LIKE "' . $pseudo . '"';
+        $q = $this->dao->query($sql)->fetch();
+        return $q[bool];
+    }
+
     public function inscription($pseudo, $password, $email)
     {
-        $q = $this->dao->prepare('INSERT INTO compte SET pseudo = :pseudo, email = :email, passwd = :passwd');
+        $q = $this->dao->prepare('INSERT INTO compte SET pseudo = :pseudo, email = :email, passwd = :passwd, avatar = :avatar');
 
         $q->bindValue(':pseudo', $pseudo);
         $q->bindValue(':email', $email);
         $q->bindValue(':passwd', $password);
+        $q->bindValue(':avatar', "membres/avatars/default.png");
 
         $q->execute();
     }

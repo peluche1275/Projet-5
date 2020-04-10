@@ -2,7 +2,7 @@
     <form method="post" action="#">
         <div class="fields">
             <div class="field half">
-                <label for="name">Name</label>
+                <label for="name">Nom</label>
                 <input type="text" name="name" id="name" />
             </div>
             <div class="field half">
@@ -15,7 +15,7 @@
             </div>
         </div>
         <ul class="actions">
-            <li><input type="submit" value="Send Message" class="primary" /></li>
+            <li><input type="submit" value="Envoyer un message" class="primary" /></li>
             <li><input type="reset" value="Reset" /></li>
         </ul>
     </form> 
