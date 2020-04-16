@@ -14,6 +14,7 @@ class GameController extends BackController
 
     public function executeGame()
     {
+        // Préparation du jeu //
         $this->page->addVar('partieLancer', false);
         $this->page->addVar('title', 'Jeu');
         $manager = $this->managers->getManagerOf('Connection');
@@ -23,33 +24,49 @@ class GameController extends BackController
         $this->page->addVar('account', $account);
         $this->page->addVar('game', $game);
 
-        if (isset($_POST['start'])) {
+        // Lancer le jeu //
+        if (isset($_POST['start'])) :
             $managerGame->start($account->id());
             $this->app->httpResponse()->redirect('/jeu');
-        }
+        endif;
 
-        if (isset($_POST['reset'])) {
+        // Réinitatiliser le jeu //
+        if (isset($_POST['reset'])) :
             $managerGame->reset($account->id());
             $this->app->httpResponse()->redirect('/jeu');
-        }
+        endif;
 
-        if ($managerGame->PartieLancer($account->id())) {
-
-            // DANS LE JEU //
-            
-            // $message = $managerGame->message($game->progression());
+        // Si la partie est lancer
+        if ($managerGame->PartieLancer($account->id())) :
             $messages = $managerGame->ListMessages($game->progression());
             $this->page->addVar('partieLancer', true);
-            $this->page->addVar('choix', false);
             $this->page->addVar('messages', $messages);
+            $choix1 = $managerGame->showChoices($game->progression())['choix1'];
+            $choix2 = $managerGame->showChoices($game->progression())['choix2'];
+            $this->page->addVar('choix1', $choix1);
+            $this->page->addVar('choix2', $choix2);
 
-            if (isset($_POST['next'])) {
+            if (isset($_POST['choix1'])) :
+                $managerGame->choice(1,$game->progression(),$account->id());
                 $managerGame->advancingHistory($account->id());
                 $this->app->httpResponse()->redirect('/jeu');
-            }
+            endif;
 
-            // DANS LE JEU //
+            if (isset($_POST['choix2'])) :
+                $managerGame->choice(2,$game->progression(),$account->id());
+                $managerGame->advancingHistory($account->id());
+                $this->app->httpResponse()->redirect('/jeu');
+            endif;
 
-        }
+
+        // $_GET['messages'] = $managerGame->ListMessagesAjax();
+        // $this->page->addVar('partieLancer', true);
+        // $this->page->addVar('choix', false);
+
+        // if (isset($_POST['next'])) :
+        //     $managerGame->advancingHistory($account->id());
+        // endif;
+
+        endif;
     }
 }

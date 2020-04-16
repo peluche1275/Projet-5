@@ -14,11 +14,11 @@ class ConnectionController extends BackController
     public function executeIndex()
     {
         $this->page->addVar('title', 'Accueil du jeu');
-        if ($this->app->user()->isAuthenticated()) {
+        if ($this->app->user()->isAuthenticated()) :
             $manager = $this->managers->getManagerOf('Connection');
             $account = new Account($manager->account($_SESSION['nameAccount']));
             $this->page->addVar('account', $account);
-        }
+        endif;
     }
 
     public function executeInscription(HTTPRequest $request)
@@ -27,29 +27,28 @@ class ConnectionController extends BackController
 
         $manager = $this->managers->getManagerOf('Connection');
 
-        if ($request->postExists('pseudo')) {
-            if ($request->postData('password') == $request->postData('password2')) {
+        if ($request->postExists('pseudo')) :
+            if ($request->postData('password') == $request->postData('password2')) :
                 $pseudo = $request->postData('pseudo');
                 $password = password_hash($request->postData('password'), PASSWORD_DEFAULT);
                 $email = $request->postData('email');
 
-                if ($manager->verification($pseudo)) {
+                if ($manager->verification($pseudo)) :
                     $this->app->user()->setFlash('Ce pseudo existe déjà!');
                     $this->app->httpResponse()->redirect('/inscription');
-                } else {
+                else :
                     $this->app->user()->setFlash('Inscription réalisée avec succès!');
                     $manager->inscription($pseudo, $password, $email);
                     $this->app->httpResponse()->redirect('/login');
-                }
-            } else {
+                endif;
+            else :
                 $this->app->user()->setFlash('Les deux mots de passe ne correspondent pas');
-            }
-        }
+            endif;
+        endif;
     }
 
     public function executeContact(HTTPRequest $request)
     {
-
     }
 
     public function executeConnexion(HTTPRequest $request)
@@ -58,18 +57,18 @@ class ConnectionController extends BackController
 
         $manager = $this->managers->getManagerOf('Connection');
 
-        if ($request->postExists('pseudo')) {
+        if ($request->postExists('pseudo')) :
             $pseudo = $request->postData('pseudo');
             $password = $request->postData('password');
 
-            if ($manager->connexion($pseudo, $password)) {
+            if ($manager->connexion($pseudo, $password)) :
                 $this->app->user()->setAuthenticated(true, $pseudo);
                 $this->app->httpResponse()->redirect('.');
-            } else {
+            else :
                 $this->app->user()->setFlash('Le pseudo ou le mot de passe est incorrect.');
                 $this->app->httpResponse()->redirect('login');
-            }
-        }
+            endif;
+        endif;
     }
 
     public function executeMonCompte()

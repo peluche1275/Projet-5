@@ -42,7 +42,7 @@ class GameManagerPDO extends Manager
 
     public function message($progression)
     {
-        $sql = 'SELECT contenu FROM messagejeu WHERE id ="' . $progression . '"';
+        $sql = 'SELECT contenu FROM scenario1 WHERE id ="' . $progression . '"';
         $q = $this->dao->query($sql)->fetch();
         $message = $q['contenu'];
         return $message;
@@ -53,15 +53,38 @@ class GameManagerPDO extends Manager
         if($progression>=5)
         {
             $progression2 = $progression-4;
-            $sql = 'SELECT contenu, choix FROM messagejeu WHERE id>='. '\''. $progression2 . '\''. 'LIMIT 0,5';
+            $sql = 'SELECT contenu FROM scenario1 WHERE id>='. '\''. $progression2 . '\''. 'LIMIT 0,5';
         }
         else 
         {
-            $sql = 'SELECT contenu, choix FROM messagejeu LIMIT 0,' .$progression;
+            $sql = 'SELECT contenu FROM scenario1 LIMIT 0,' .$progression;
         }
         
         $q = $this->dao->query($sql)->fetchAll();
         return $q;
+    }
+
+    public function ListMessagesAjax()
+    {
+        $sql = 'SELECT id,contenu FROM scenario1';
+        $q = $this->dao->query($sql)->fetchAll();
+        return $q;
+
+    }
+
+    public function showChoices($progression)
+    {
+        $sql = 'SELECT choix1, choix2 FROM scenario1 WHERE id =' .$progression;
+        $q = $this->dao->query($sql)->fetch();
+        return $q;
+    }
+
+    public function choice($choix,$progression,$id)
+    {
+        $sql = 'SELECT o'.$choix.',s'.$choix.',a'.$choix.' FROM scenario1 WHERE id =' .$progression;
+        $q = $this->dao->query($sql)->fetch();
+        $sql = 'UPDATE partie SET otages = otages+'.$q['o'.$choix].', soldats = soldats+'.$q['s'.$choix].', argents = argents+'.$q['a'.$choix].' WHERE idcompte = '.$id;
+        $this->dao->exec($sql);
     }
 
     public function advancingHistory($id)
