@@ -23,6 +23,11 @@ class ConnectionManagerPDO extends Manager
         $q->bindValue(':avatar', "membres/avatars/default.png");
 
         $q->execute();
+        
+        $sql = 'SELECT id FROM compte WHERE pseudo ="' . $pseudo . '"';
+        $q2 = $this->dao->query($sql)->fetch();
+
+        $this->dao->exec('INSERT INTO partie SET idcompte = '.$q2['id']);
     }
 
     public function connexion($pseudo, $password)
