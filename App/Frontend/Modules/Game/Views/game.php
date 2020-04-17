@@ -15,15 +15,16 @@
 
 
 if ($partieLancer) { ?>
-    <script src="assets/js/message.js"></script>
-    <p>otages : <?= $game->otages() ?></p>
-    <p>soldats: <?= $game->soldats() ?></p>
-    <p>argents : <?= $game->argents() ?></p>
+    
+    <p id="otages">otages : <?= $game->otages() ?></p>
+    <p id="soldats">soldats: <?= $game->soldats() ?></p>
+    <p id="argents">argents : <?= $game->argents() ?></p>
     <br>
     <p>Message :</p>
     <?php foreach ($messages as $message) : ?>
         <p><?= $message['contenu'] ?></p>
     <?php endforeach; ?>
+        <span id="message1"></span>
 
     <br>
     
@@ -34,10 +35,11 @@ if ($partieLancer) { ?>
     $choix2 = 'Choix 2';
    endif;?>
 
-        <form method="post" action="#">
+        <form id="choix" method="post" action="#">
             <ul class="actions">
-                <li><input type="submit" value="<?= $choix1 ?>" class="primary" name="choix1" /></li>
-                <li><input type="submit" value="<?= $choix2 ?>" class="primary" name="choix2" /></li>
+                <input id="idhidden" type="hidden" value="<?= $account->id()?>">
+                <li id="choix1Li"><p id="choix1"><?= $choix1 ?></p></li>
+                <li id="choix2Li"><p id="choix2"><?= $choix2 ?></p></li>
             </ul>
         </form>
 
@@ -47,3 +49,5 @@ if ($partieLancer) { ?>
         </ul>
     </form>
 <?php } ?>
+
+<script src="assets/js/message.js"></script>

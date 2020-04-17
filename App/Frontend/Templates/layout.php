@@ -40,9 +40,11 @@
             <li><a href="/jeu">Jeu</a></li>
             <li><a href="/moncompte">Mon compte</a></li>
             <li><a href="/deconnexion">Déconnexion</a></li>
+            
           <?php } ?>
 
         </ul>
+        <img class="avatar" src="<?= $account->avatar() ?>" alt="Votre Avatar">
       </nav>
     </header>
 

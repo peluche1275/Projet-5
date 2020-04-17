@@ -69,7 +69,6 @@ class GameManagerPDO extends Manager
         $sql = 'SELECT id,contenu FROM scenario1';
         $q = $this->dao->query($sql)->fetchAll();
         return $q;
-
     }
 
     public function showChoices($progression)
