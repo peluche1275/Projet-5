@@ -28,6 +28,7 @@ $q = $dao->query($sql)->fetch();
 $progression = $q['progression'];
 $progressionSuite = $progression + 1;
 
+
 // Récupération des choix pour les afficher //
 $sql2 = 'SELECT contenu,choix1,choix2 FROM scenario1 WHERE id=' . $progressionSuite;
 $q2 = $dao->query($sql2)->fetch();

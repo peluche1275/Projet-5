@@ -7,5 +7,6 @@
     <route url="/deconnexion" module="connection" action="deconnexion" />
     <route url="/inscription" module="connection" action="inscription" />
     <route url="/jeu" module="game" action="game" />
+    <route url="/async/script.php" module="game" action="game" />
 </routes>
 <!-- <route url="/news-([0-9]+)\.html" module="News" action="show" vars="id"/> -->

@@ -3,19 +3,19 @@
 					<div class="fields">
 						<div class="field half">
 							<label for="pseudo">Pseudo</label>
-							<input type="text" name="pseudo" id="pseudo" />
+							<input type="text" name="pseudo" id="pseudo" required aria-required="true"/>
 						</div>
 						<div class="field half">
 							<label for="email">Email</label>
-							<input type="text" name="email" id="email" />
+							<input type="email" name="email" id="email" required aria-required="true"/>
                         </div>
                         <div class="field half">
 							<label for="password">Mot de passe</label>
-							<input type="password" name="password" id="password" />
+							<input type="password" name="password" id="password" required aria-required="true"/>
                         </div>
                         <div class="field half">
 							<label for="password2">Répéter Mot de passe</label>
-							<input type="password" name="password2" id="password2" />
+							<input type="password" name="password2" id="password2" required aria-required="true" />
 						</div>
 					</div>
 					<ul class="actions">
