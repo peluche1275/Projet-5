@@ -15,7 +15,7 @@
             </div>
         </div>
         <ul class="actions">
-            <li><input type="submit" value="Envoyer un message" class="primary" /></li>
+            <li><input type="submit" value="Envoyer un message" class="primary" name="contact" /></li>
             <li><input type="reset" value="Reset" /></li>
         </ul>
     </form> 

@@ -12,12 +12,18 @@ document.getElementById("choix1").addEventListener("click", function (e) {
             let response = this.response;
             console.log(response.choix1);
 
+            document.getElementById("phpmessages").style.display = "none";
             document.getElementById("choix1").innerHTML = response.choix1;
             document.getElementById("choix2").innerHTML = response.choix2;
-            document.getElementById("message1").innerHTML = "<p>" + response.message1 + "</p>";
             document.getElementById("otages").innerHTML = "otages : " + response.otages;
             document.getElementById("soldats").innerHTML = "soldats : " + response.soldats;
             document.getElementById("argents").innerHTML = "argents : " + response.argents;
+            document.getElementById("message5").innerHTML = "<p>" + response.message5 + "</p>";
+            document.getElementById("message4").innerHTML = "<p>" + response.message4 + "</p>";
+            document.getElementById("message3").innerHTML = "<p>" + response.message3 + "</p>";
+            document.getElementById("message2").innerHTML = "<p>" + response.message2 + "</p>";
+            document.getElementById("message1").innerHTML = "<p>" + response.message1 + "</p>";
+            
 
         } else if (this.readyState == 4) {
             alert("Une Erreur est survenue...");
@@ -45,12 +51,17 @@ document.getElementById("choix2").addEventListener("click", function (e) {
             let response = this.response;
             console.log(response.choix2);
 
+            document.getElementById("phpmessages").style.display = "none";
             document.getElementById("choix1").innerHTML = response.choix1;
             document.getElementById("choix2").innerHTML = response.choix2;
-            document.getElementById("message1").innerHTML = "<p>" + response.message1 + "</p>";
             document.getElementById("otages").innerHTML = "otages : " + response.otages;
             document.getElementById("soldats").innerHTML = "soldats : " + response.soldats;
             document.getElementById("argents").innerHTML = "argents : " + response.argents;
+            document.getElementById("message5").innerHTML = "<p>" + response.message5 + "</p>";
+            document.getElementById("message4").innerHTML = "<p>" + response.message4 + "</p>";
+            document.getElementById("message3").innerHTML = "<p>" + response.message3 + "</p>";
+            document.getElementById("message2").innerHTML = "<p>" + response.message2 + "</p>";
+            document.getElementById("message1").innerHTML = "<p>" + response.message1 + "</p>";
 
         } else if (this.readyState == 4) {
             alert("Une Erreur est survenue...");

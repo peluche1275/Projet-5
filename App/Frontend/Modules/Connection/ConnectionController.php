@@ -49,6 +49,16 @@ class ConnectionController extends BackController
 
     public function executeContact(HTTPRequest $request)
     {
+        $this->page->addVar('title', 'Contact');
+        $manager = $this->managers->getManagerOf('Connection');
+        $account = new Account($manager->account($_SESSION['nameAccount']));
+        $this->page->addVar('account', $account);
+
+        // EN CONSTRUCTION //
+        if($request->postExists('contact')) :
+            if($request->postExists('name')) :
+            endif;
+        endif;
     }
 
     public function executeConnexion(HTTPRequest $request)

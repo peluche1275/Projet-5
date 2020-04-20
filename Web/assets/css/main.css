@@ -81,6 +81,12 @@ input, select, textarea {
     border-radius:100px;
 }
 
+#dataGame{
+	display: flex;
+	justify-content: space-around;
+}
+
+
 
 /* Basic */
 

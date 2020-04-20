@@ -15,16 +15,25 @@
 
 
 if ($partieLancer) { ?>
-    
-    <p id="otages">otages : <?= $game->otages() ?></p>
-    <p id="soldats">soldats: <?= $game->soldats() ?></p>
-    <p id="argents">argents : <?= $game->argents() ?></p>
+<div id="dataGame">
+    <p id="otages">Otages : <?= $game->otages() ?></p>
+    <p id="soldats">Soldats: <?= $game->soldats() ?></p>
+    <p id="argents">Argents : <?= $game->argents() ?></p>
+</div>
     <br>
     <p>Message :</p>
-    <?php foreach ($messages as $message) : ?>
+<div id="phpmessages">
+    <?php
+    foreach ($messages as $message) : 
+        ?>
         <p><?= $message['contenu'] ?></p>
     <?php endforeach; ?>
-        <span id="message1"></span>
+</div>
+    <span id="message1"></span>
+    <span id="message2"></span>
+    <span id="message3"></span>
+    <span id="message4"></span>
+    <span id="message5"></span>
 
     <br>
     
@@ -38,8 +47,8 @@ if ($partieLancer) { ?>
         <form id="choix" method="post" action="#">
             <ul class="actions">
                 <input id="idhidden" type="hidden" value="<?= $account->id()?>">
-                <li id="choix1Li"><p id="choix1"><?= $choix1 ?></p></li>
-                <li id="choix2Li"><p id="choix2"><?= $choix2 ?></p></li>
+                <li id="choix1Li"><p class="button" id="choix1"><?= $choix1 ?></p></li>
+                <li id="choix2Li"><p class="button" id="choix2"><?= $choix2 ?></p></li>
             </ul>
         </form>
 

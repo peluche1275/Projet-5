@@ -36,15 +36,17 @@
           <?php } ?>
           
           <li><a href="/contact">Contact</a></li>
-          <?php if ($user->isAuthenticated()) { ?>
+          <?php if ($user->isAuthenticated()) : ?>
             <li><a href="/jeu">Jeu</a></li>
             <li><a href="/moncompte">Mon compte</a></li>
             <li><a href="/deconnexion">Déconnexion</a></li>
             
-          <?php } ?>
+          <?php endif ?>
 
         </ul>
+        <?php if ($user->isAuthenticated()) : ?>
         <img class="avatar" src="<?= $account->avatar() ?>" alt="Votre Avatar">
+        <?php endif ?>
       </nav>
     </header>
 
