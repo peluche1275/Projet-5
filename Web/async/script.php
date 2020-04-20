@@ -16,9 +16,11 @@ $entityLoader->register();
 
 // Connexion et Manager //
 $dao = PDOFactory::getMysqlConnexion();
-$Manager = new GameManagerPDO('PDO', $dao);
+$Manager = new GameManagerPDO($dao);
 
-// Récuperation du choix et de l'ID de l'user //
+$Manager->ListMessagesAjax();
+
+
 $choix = $_GET['choix'];
 $id = $_GET['id'];
 
@@ -27,7 +29,6 @@ $sql = 'SELECT progression FROM partie WHERE idcompte =' . $id;
 $q = $dao->query($sql)->fetch();
 $progression = $q['progression'];
 $progressionSuite = $progression + 1;
-
 
 // Récupération des choix pour les afficher //
 $sql2 = 'SELECT contenu,choix1,choix2 FROM scenario1 WHERE id=' . $progressionSuite;
@@ -88,3 +89,4 @@ $res = ["choix1" => $q2['choix1'], "choix2" => $q2['choix2'], "message5" => $q2[
 
 
 echo json_encode($res);
+
