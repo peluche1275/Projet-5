@@ -46,27 +46,13 @@ class GameController extends BackController
             $choix2 = $managerGame->showChoices($game->progression())['choix2'];
             $this->page->addVar('choix1', $choix1);
             $this->page->addVar('choix2', $choix2);
-
-            if (isset($_POST['choix1'])) :
-                $managerGame->choice(1, $game->progression(), $account->id());
-                $managerGame->advancingHistory($account->id());
-                $this->app->httpResponse()->redirect('/jeu');
-            endif;
-
-            if (isset($_POST['choix2'])) :
-                $managerGame->choice(2, $game->progression(), $account->id());
-                $managerGame->advancingHistory($account->id());
-                $this->app->httpResponse()->redirect('/jeu');
-            endif;
-
         endif;
     }
 
     public function executeGameAjax()
     {
-        $dao = PDOFactory::getMysqlConnexion();
         $choix = $_GET['choix'];
-        $id = $_GET['id'];
+        $id = $_SESSION['id'];
         $manager = $this->managers->getManagerOf('Game');
         $progression = $manager->userProgressAjax($id);
         $next = $manager->nextMessageAjax($progression);

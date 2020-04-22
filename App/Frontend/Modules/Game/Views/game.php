@@ -1,5 +1,9 @@
 <p> Page du jeu de <?= $account->pseudo() ?> </p>
 
+<?php 
+$_SESSION['id'] = $account->id();
+?>
+
 <?php if ($partieLancer == false) {
 ?>
     <form method="post" action="#">
@@ -11,16 +15,16 @@
 }
 ?>
 
-<?php
-
-
-if ($partieLancer) { ?>
+<?php if ($partieLancer) : ?>
 <div id="dataGame">
     <p id="otages">Otages : <?= $game->otages() ?></p>
     <p id="soldats">Soldats: <?= $game->soldats() ?></p>
     <p id="argents">Argents : <?= $game->argents() ?></p>
 </div>
     <br>
+   <?php if($game->progression()>=6) : ?>
+    <p class="pagination">O</p>
+    <?php endif ?>
     <p>Message :</p>
 <div id="phpmessages">
     <?php
@@ -46,7 +50,6 @@ if ($partieLancer) { ?>
 
         <form id="choix" method="post" action="#">
             <ul class="actions">
-                <input id="idhidden" type="hidden" value="<?= $account->id()?>">
                 <li id="choix1Li"><p class="button" id="choix1"><?= $choix1 ?></p></li>
                 <li id="choix2Li"><p class="button" id="choix2"><?= $choix2 ?></p></li>
             </ul>
@@ -57,6 +60,6 @@ if ($partieLancer) { ?>
             <li><input type="submit" value="Relancer la partie" class="primary" name="reset" /></li>
         </ul>
     </form>
-<?php } ?>
+<?php endif ?>
 
 <script src="assets/js/message.js"></script>
