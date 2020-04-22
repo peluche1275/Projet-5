@@ -1,6 +1,6 @@
 <p> Page du jeu de <?= $account->pseudo() ?> </p>
 
-<?php 
+<?php
 $_SESSION['id'] = $account->id();
 ?>
 
@@ -16,45 +16,35 @@ $_SESSION['id'] = $account->id();
 ?>
 
 <?php if ($partieLancer) : ?>
-<div id="dataGame">
-    <p id="otages">Otages : <?= $game->otages() ?></p>
-    <p id="soldats">Soldats: <?= $game->soldats() ?></p>
-    <p id="argents">Argents : <?= $game->argents() ?></p>
-</div>
-    <br>
-   <?php if($game->progression()>=6) : ?>
-    <p class="pagination">O</p>
-    <?php endif ?>
-    <p>Message :</p>
-<div id="phpmessages">
-    <?php
-    foreach ($messages as $message) : 
-        ?>
-        <p><?= $message['contenu'] ?></p>
-    <?php endforeach; ?>
-</div>
-    <span id="message1"></span>
-    <span id="message2"></span>
-    <span id="message3"></span>
-    <span id="message4"></span>
-    <span id="message5"></span>
+    <div id="game">
+        <div id="dataGame">
+            <p id="otages">Otages : </p>
+            <p id="soldats">Soldats: </p>
+            <p id="argents">Argents : </p>
+        </div>
+        <br>
+        <p id="precedent">precedent</p>
+        <p id="suivant">suivant</p>
+        <p>Message :</p>
 
-    <br>
-    
-   <?php if(!isset($choix1)) :
-    $choix1 = 'Choix 1';
-   endif;
-   if(!isset($choix2)) :
-    $choix2 = 'Choix 2';
-   endif;?>
+        <span id="message1"></span>
+        <span id="message2"></span>
+        <span id="message3"></span>
+        <span id="message4"></span>
+        <span id="message5"></span>
 
+        <br>
         <form id="choix" method="post" action="#">
             <ul class="actions">
-                <li id="choix1Li"><p class="button" id="choix1"><?= $choix1 ?></p></li>
-                <li id="choix2Li"><p class="button" id="choix2"><?= $choix2 ?></p></li>
+                <li id="choix1Li">
+                    <p class="button" id="choix1"></p>
+                </li>
+                <li id="choix2Li">
+                    <p class="button" id="choix2"></p>
+                </li>
             </ul>
         </form>
-
+    </div>
     <form method="post" action="#">
         <ul class="actions">
             <li><input type="submit" value="Relancer la partie" class="primary" name="reset" /></li>

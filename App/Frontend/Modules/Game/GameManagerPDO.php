@@ -104,7 +104,7 @@ class GameManagerPDO extends Manager
         $this->dao->exec($sql);
     }
 
-    public function applyChoiceAjax($choix,$progression,$id)
+    public function applyChoiceAjax($choix, $progression, $id)
     {
         $sql = 'SELECT o' . $choix . ',s' . $choix . ',a' . $choix . ' FROM scenario1 WHERE id =' . $progression;
         $q = $this->dao->query($sql)->fetch();
@@ -118,15 +118,33 @@ class GameManagerPDO extends Manager
         return $this->dao->query($sql)->fetch();
     }
 
-    public function nextMessageAjax($progression)
+    public function scoreAjax($id)
     {
-        $sql = 'SELECT contenu,choix1,choix2 FROM scenario1 WHERE id=' . $progression.'+1';
+        $sql = 'SELECT otages,soldats,argents FROM partie WHERE idcompte=' . $id;
+        $q= $this->dao->query($sql)->fetch();
+        $otages = $q['otages'];
+        $soldats = $q['soldats'];
+        $argents = $q['argents'];
+        $score = $argents + $soldats*235 + $otages*534;
+        return $score;
+    }
+
+    public function choicesAjax($progression)
+    {
+        $sql = 'SELECT choix1,choix2 FROM scenario1 WHERE id=' . $progression;
         return $this->dao->query($sql)->fetch();
     }
 
     public function getMessagesAjax($progression)
     {
-        $sql = 'SELECT contenu FROM scenario1 WHERE id <=' . $progression.'+1 ORDER BY id DESC';
+        $sql = 'SELECT contenu FROM scenario1 WHERE id <=' . $progression . ' ORDER BY id DESC';
         return $this->dao->query($sql)->fetchAll();
+    }
+
+    public function verificationAjax($progression)
+    {
+        $sql = 'SELECT COUNT(*) AS bool FROM scenario1 WHERE id=' . $progression;
+        $q = $this->dao->query($sql)->fetch();
+        return $q['bool'];
     }
 }

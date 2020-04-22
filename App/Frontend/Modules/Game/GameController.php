@@ -39,52 +39,67 @@ class GameController extends BackController
 
         // Si la partie est lancer
         if ($managerGame->PartieLancer($account->id())) :
-            $messages = $managerGame->ListMessages($game->progression());
             $this->page->addVar('partieLancer', true);
-            $this->page->addVar('messages', $messages);
-            $choix1 = $managerGame->showChoices($game->progression())['choix1'];
-            $choix2 = $managerGame->showChoices($game->progression())['choix2'];
-            $this->page->addVar('choix1', $choix1);
-            $this->page->addVar('choix2', $choix2);
         endif;
     }
 
     public function executeGameAjax()
     {
-        $choix = $_GET['choix'];
         $id = $_SESSION['id'];
         $manager = $this->managers->getManagerOf('Game');
         $progression = $manager->userProgressAjax($id);
-        $next = $manager->nextMessageAjax($progression);
-        $manager->advancingProgressAjax($id);
-        $manager->applyChoiceAjax($choix,$progression,$id);
-        $data = $manager->getDataAjax($id);
-        $messages = $manager->getMessagesAjax($progression);
+        $page = $_GET['page'];
+        $fin = true;
+        $score = 0;
 
+        if ($page == 0) :
+            if (isset($_GET['choix'])) :
+                $choix = $_GET['choix'];
+                $manager->advancingProgressAjax($id);
+                $manager->applyChoiceAjax($choix, $progression, $id);
+                $progression = $manager->userProgressAjax($id);
+            endif;
+        else :
+            $progression = $progression - 5 * $page;
+        endif;
+
+        if ($manager->verificationAjax($progression)) :
+            $choices = $manager->choicesAjax($progression);
+            $data = $manager->getDataAjax($id);
+            $messages = $manager->getMessagesAjax($progression);
+        else :
+            $choices = $manager->choicesAjax(1);
+            $data = $manager->getDataAjax($id);
+            $messages = $manager->getMessagesAjax(1);
+            $score = $manager->scoreAjax($id);
+            $fin = false;
+        endif;
 
         // Récupération des messages //
+        $message5 = "";
         $message4 = "";
         $message3 = "";
         $message2 = "";
         $message1 = "";
-        // Récupération du message 4 //
-        if ($progression > 0) :
+
+        if (isset($messages[0]['contenu'])) :
+            $message5 = $messages[0]['contenu'];
+        endif;
+
+        if (isset($messages[1]['contenu'])) :
             $message4 = $messages[1]['contenu'];
         endif;
-        // Récupération du message 3 //
-        if ($progression > 1) :
+        if (isset($messages[2]['contenu'])) :
             $message3 = $messages[2]['contenu'];
         endif;
-        // Récupération du message 2 //
-        if ($progression > 2) :
+        if (isset($messages[3]['contenu'])) :
             $message2 = $messages[3]['contenu'];
         endif;
-        // Récupération du message 1 //
-        if ($progression > 3) :
+        if (isset($messages[4]['contenu'])) :
             $message1 = $messages[4]['contenu'];
         endif;
 
-        $res = ["choix1" => $next['choix1'], "choix2" => $next['choix2'], "message5" => $next['contenu'], "message4" => $message4, "message3" => $message3, "message2" => $message2, "message1" => $message1, "otages" => $data['otages'], "soldats" => $data['soldats'], "argents" => $data['argents']];
+        $res = ["score" => $score,"fin" => $fin, "page" => $page, "choix1" => $choices['choix1'], "choix2" => $choices['choix2'], "message5" => $message5, "message4" => $message4, "message3" => $message3, "message2" => $message2, "message1" => $message1, "otages" => $data['otages'], "soldats" => $data['soldats'], "argents" => $data['argents'], "progression" => $progression];
 
         echo json_encode($res);
     }
