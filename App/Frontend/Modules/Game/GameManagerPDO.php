@@ -89,6 +89,12 @@ class GameManagerPDO extends Manager
         $this->dao->exec($sql);
     }
 
+    public function generateLeaderboard()
+    {
+        $sql = 'SELECT pseudo, avatar , bestscore FROM compte ORDER BY bestscore DESC LIMIT 0,10';
+        return $this->dao->query($sql)->fetchAll();
+    }
+
     // AJAX METHODS //
 
     public function userProgressAjax($id)
@@ -121,12 +127,23 @@ class GameManagerPDO extends Manager
     public function scoreAjax($id)
     {
         $sql = 'SELECT otages,soldats,argents FROM partie WHERE idcompte=' . $id;
-        $q= $this->dao->query($sql)->fetch();
+        $q = $this->dao->query($sql)->fetch();
         $otages = $q['otages'];
         $soldats = $q['soldats'];
         $argents = $q['argents'];
-        $score = $argents + $soldats*235 + $otages*534;
+        $score = $argents + $soldats * 235 + $otages * 534;
         return $score;
+    }
+
+    public function checkBestScoreAjax($score, $id)
+    {
+        $sql = 'SELECT bestscore FROM compte WHERE id=' . $id;
+        $q = $this->dao->query($sql)->fetch();
+        $bestscore = $q['bestscore'];
+        if ($score > $bestscore) :
+            $sql2 = 'UPDATE compte SET bestscore =' . $score . ' WHERE id=' . $id;
+            $this->dao->exec($sql2);
+        endif;
     }
 
     public function choicesAjax($progression)

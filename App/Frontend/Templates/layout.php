@@ -38,6 +38,7 @@
           <li><a href="/contact">Contact</a></li>
           <?php if ($user->isAuthenticated()) : ?>
             <li><a href="/jeu">Jeu</a></li>
+            <li><a href="/leaderboard">Leaderboard</a></li>
             <li><a href="/moncompte">Mon compte</a></li>
             <li><a href="/deconnexion">Déconnexion</a></li>
             

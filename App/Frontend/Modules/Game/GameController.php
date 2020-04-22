@@ -3,10 +3,8 @@
 namespace App\Frontend\Modules\Game;
 
 use \Framework\BackController;
-use \Framework\HTTPRequest;
 use \Entity\Account;
 use \Entity\Game;
-use Framework\PDOFactory;
 
 class GameController extends BackController
 {
@@ -17,7 +15,7 @@ class GameController extends BackController
     {
         // Préparation du jeu //
         $this->page->addVar('partieLancer', false);
-        $this->page->addVar('title', 'Jeu');
+        $this->page->addVar('title', 'En Jeu');
         $manager = $this->managers->getManagerOf('Connection');
         $managerGame = $this->managers->getManagerOf('Game');
         $account = new Account($manager->account($_SESSION['nameAccount']));
@@ -41,6 +39,17 @@ class GameController extends BackController
         if ($managerGame->PartieLancer($account->id())) :
             $this->page->addVar('partieLancer', true);
         endif;
+    }
+
+    public function executeLeaderboard()
+    {
+        $this->page->addVar('title', 'Leaderboard');
+        $manager = $this->managers->getManagerOf('Connection');
+        $account = new Account($manager->account($_SESSION['nameAccount']));
+        $managerGame = $this->managers->getManagerOf('Game');
+        $leaderboard = $managerGame->generateLeaderboard();
+        $this->page->addVar('account', $account);
+        $this->page->addVar('leaderboard', $leaderboard);
     }
 
     public function executeGameAjax()
@@ -72,6 +81,7 @@ class GameController extends BackController
             $data = $manager->getDataAjax($id);
             $messages = $manager->getMessagesAjax(1);
             $score = $manager->scoreAjax($id);
+            $manager->checkBestScoreAjax($score,$id);
             $fin = false;
         endif;
 

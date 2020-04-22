@@ -49,9 +49,9 @@ class ConnectionManagerPDO extends Manager
 
     public function account($pseudo)
     {
-        $sql = 'SELECT id, pseudo, avatar FROM compte WHERE pseudo ="' . $pseudo . '"';
+        $sql = 'SELECT id, pseudo, avatar,bestscore FROM compte WHERE pseudo ="' . $pseudo . '"';
         $q = $this->dao->query($sql)->fetch();
-        $array = array('pseudo' => $q['pseudo'], 'id' => $q['id'], 'avatar' => $q['avatar']);
+        $array = array('pseudo' => $q['pseudo'], 'id' => $q['id'], 'avatar' => $q['avatar'], 'score' => $q['bestscore']);
         return $array;
     }
 

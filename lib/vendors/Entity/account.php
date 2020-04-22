@@ -11,6 +11,7 @@ class Account extends Entity
     protected $pseudo;
     protected $id;
     protected $avatar;
+    protected $score;
 
     // GETTERS //
 
@@ -18,6 +19,12 @@ class Account extends Entity
     {
         return $this->pseudo;
     }
+
+    public function score()
+    {
+        return $this->score;
+    }
+
 
     public function id()
     {
@@ -34,6 +41,11 @@ class Account extends Entity
     public function setPseudo($pseudo)
     {
         $this->pseudo = $pseudo;
+    }
+
+    public function setScore($score)
+    {
+        $this->score = $score;
     }
 
     public function setId($id)

@@ -52,4 +52,4 @@ $_SESSION['id'] = $account->id();
     </form>
 <?php endif ?>
 
-<script src="assets/js/message.js"></script>
+<script src="assets/js/app.js"></script>
