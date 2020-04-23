@@ -22,6 +22,10 @@ function loadSaveAjax(choix, page) {
                     document.getElementById("precedent").style.display = "block";
                 }
 
+                if(response.lastpage==false){
+                    document.getElementById("precedent").style.display = "none";
+                    }
+
                 if (response.page == 0) {
                     document.getElementById("suivant").style.display = "none";
                 }

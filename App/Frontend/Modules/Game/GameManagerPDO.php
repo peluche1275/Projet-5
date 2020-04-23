@@ -164,4 +164,11 @@ class GameManagerPDO extends Manager
         $q = $this->dao->query($sql)->fetch();
         return $q['bool'];
     }
+
+    // public function verificationLastPageAjax($progression)
+    // {
+    //     $sql = 'SELECT COUNT(*) AS bool FROM scenario1 WHERE id=' . $progression.'+';
+    //     $q = $this->dao->query($sql)->fetch();
+    //     return $q['bool'];
+    // }
 }

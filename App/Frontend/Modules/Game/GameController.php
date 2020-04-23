@@ -53,7 +53,8 @@ class GameController extends BackController
     }
 
     public function executeGameAjax()
-    {
+    {   
+        $lastpage = true;
         $id = $_SESSION['id'];
         $manager = $this->managers->getManagerOf('Game');
         $progression = $manager->userProgressAjax($id);
@@ -70,18 +71,24 @@ class GameController extends BackController
             endif;
         else :
             $progression = $progression - 5 * $page;
+            $check = $progression-6;
+            if($check<0)
+            {
+                $lastpage = false;
+            }
+
         endif;
 
         if ($manager->verificationAjax($progression)) :
             $choices = $manager->choicesAjax($progression);
             $data = $manager->getDataAjax($id);
             $messages = $manager->getMessagesAjax($progression);
-        else :
+        elseif($page==0) :
             $choices = $manager->choicesAjax(1);
             $data = $manager->getDataAjax($id);
             $messages = $manager->getMessagesAjax(1);
             $score = $manager->scoreAjax($id);
-            $manager->checkBestScoreAjax($score,$id);
+            $manager->checkBestScoreAjax($score, $id);
             $fin = false;
         endif;
 
@@ -109,7 +116,7 @@ class GameController extends BackController
             $message1 = $messages[4]['contenu'];
         endif;
 
-        $res = ["score" => $score,"fin" => $fin, "page" => $page, "choix1" => $choices['choix1'], "choix2" => $choices['choix2'], "message5" => $message5, "message4" => $message4, "message3" => $message3, "message2" => $message2, "message1" => $message1, "otages" => $data['otages'], "soldats" => $data['soldats'], "argents" => $data['argents'], "progression" => $progression];
+        $res = ["lastpage" => $lastpage,"score" => $score, "fin" => $fin, "page" => $page, "choix1" => $choices['choix1'], "choix2" => $choices['choix2'], "message5" => $message5, "message4" => $message4, "message3" => $message3, "message2" => $message2, "message1" => $message1, "otages" => $data['otages'], "soldats" => $data['soldats'], "argents" => $data['argents'], "progression" => $progression];
 
         echo json_encode($res);
     }
