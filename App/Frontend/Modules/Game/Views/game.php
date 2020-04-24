@@ -1,5 +1,5 @@
+<h2 class="major">JEU</h2>
 <p> Page du jeu de <?= $account->pseudo() ?> </p>
-
 <?php
 $_SESSION['id'] = $account->id();
 ?>
@@ -23,9 +23,8 @@ $_SESSION['id'] = $account->id();
             <p id="argents">Argents : </p>
         </div>
         <br>
-        <p id="precedent">precedent</p>
-        <p id="suivant">suivant</p>
-        <p>Message :</p>
+        <i id="precedent" class="fas fa-backward"></i>
+        <i id="suivant" class="fas fa-forward"></i>
 
         <span id="message1"></span>
         <span id="message2"></span>

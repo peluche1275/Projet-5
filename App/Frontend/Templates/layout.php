@@ -3,28 +3,25 @@
 
 <head>
   <title>
-    <?= isset($title) ? $title : 'Super jeu' ?>
+    <?= isset($title) ? $title : 'Old Men Bandits' ?>
   </title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="Old men bandits, le jeu narratif des boomerz">
+  <meta name="keywords" content="Old men bandits, jeu, narratif">
   <link rel="stylesheet" href="assets/css/main.css" />
   <noscript>
-    <link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-
+    <link rel="stylesheet" href="assets/css/noscript.css" />
+  </noscript>
 </head>
-
 <body>
   <div id="wrapper">
-
     <header id="header">
-      <!-- <div class="logo">
-        <span class="icon fa-gem"></span>
-      </div> -->
       <div class="content">
         <div class="inner">
-          <h1><a href="/">Le Super jeu</a></h1>
-          <p>Le super jeu trop bien qui a l'air trop cool</p>
+          <h1><a href="/">Old men bandits</a></h1>
+          <p>Le jeu narratif qui parle des Boomerz</p>
         </div>
       </div>
       <nav>
@@ -34,25 +31,19 @@
             <li><a href="/login">Connexion</a></li>
             <li><a href="/inscription">Inscription</a></li>
           <?php } ?>
-          
-          <li><a href="/contact">Contact</a></li>
           <?php if ($user->isAuthenticated()) : ?>
             <li><a href="/jeu">Jeu</a></li>
             <li><a href="/leaderboard">Leaderboard</a></li>
             <li><a href="/moncompte">Mon compte</a></li>
             <li><a href="/deconnexion">Déconnexion</a></li>
-            
           <?php endif ?>
-
         </ul>
         <?php if ($user->isAuthenticated()) : ?>
-        <img class="avatar" src="<?= $account->avatar() ?>" alt="Votre Avatar">
+
         <?php endif ?>
       </nav>
     </header>
-
     <div id="main">
-
       <section>
         <?php if ($user->hasFlash()) echo '<p style="text-align: center;">', $user->getFlash(), '</p>'; ?>
         <?= $content ?>
@@ -65,7 +56,7 @@
   </div>
   <!-- BG -->
   <div id="bg"></div>
-
+  <script src="https://kit.fontawesome.com/1c9c468cda.js" crossorigin="anonymous"></script>
 </body>
 
 </html>

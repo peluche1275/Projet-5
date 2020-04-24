@@ -29,12 +29,20 @@ class ConnectionController extends BackController
 
         if ($request->postExists('pseudo')) :
             if ($request->postData('password') == $request->postData('password2')) :
-                $pseudo = $request->postData('pseudo');
+                $pseudo = htmlspecialchars($request->postData('pseudo'));
                 $password = password_hash($request->postData('password'), PASSWORD_DEFAULT);
                 $email = $request->postData('email');
-
-                if ($manager->verification($pseudo)) :
+                if ($manager->verification($pseudo, "pseudo")) :
                     $this->app->user()->setFlash('Ce pseudo existe déjà!');
+                    $this->app->httpResponse()->redirect('/inscription');
+                elseif($manager->TestPassword($request->postData('password')) == false) :
+                        $this->app->user()->setFlash('Mot de passe trop faible');
+                        $this->app->httpResponse()->redirect('/inscription');
+                elseif ($manager->verification($email, "email")) :
+                    $this->app->user()->setFlash('Ce mail existe déjà!');
+                    $this->app->httpResponse()->redirect('/inscription');
+                elseif (filter_var($email, FILTER_VALIDATE_EMAIL) == false) :
+                    $this->app->user()->setFlash('Adresse Mail invalide');
                     $this->app->httpResponse()->redirect('/inscription');
                 else :
                     $this->app->user()->setFlash('Inscription réalisée avec succès!');
@@ -43,20 +51,6 @@ class ConnectionController extends BackController
                 endif;
             else :
                 $this->app->user()->setFlash('Les deux mots de passe ne correspondent pas');
-            endif;
-        endif;
-    }
-
-    public function executeContact(HTTPRequest $request)
-    {
-        $this->page->addVar('title', 'Contact');
-        $manager = $this->managers->getManagerOf('Connection');
-        $account = new Account($manager->account($_SESSION['nameAccount']));
-        $this->page->addVar('account', $account);
-
-        // EN CONSTRUCTION //
-        if($request->postExists('contact')) :
-            if($request->postExists('name')) :
             endif;
         endif;
     }
