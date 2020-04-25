@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <routes>
     <!-- CONNECTION -->
-    <route url="/" module="connection" action="index" />
-    <route url="/login" module="connection" action="connexion" />
-    <route url="/moncompte" module="connection" action="monCompte" />
-    <route url="/deconnexion" module="connection" action="deconnexion" />
-    <route url="/inscription" module="connection" action="inscription" />
+    <route url="/" module="Connection" action="index" />
+    <route url="/login" module="Connection" action="connexion" />
+    <route url="/moncompte" module="Connection" action="monCompte" />
+    <route url="/deconnexion" module="Connection" action="deconnexion" />
+    <route url="/inscription" module="Connection" action="inscription" />
     <!-- GAME -->
-    <route url="/jeu" module="game" action="game" />
-    <route url="/leaderboard" module="game" action="leaderboard" />
+    <route url="/jeu" module="Game" action="game" />
+    <route url="/leaderboard" module="Game" action="leaderboard" />
 </routes>
