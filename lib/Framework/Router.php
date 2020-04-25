@@ -14,20 +14,20 @@ class Router
 
     public function addRoute(Route $route)
     {
-        if (!in_array($route, $this->routes)) {
+        if (!in_array($route, $this->routes)) :
             $this->routes[] = $route;
-        }
+        endif;
     }
 
     // METHOD //
 
     public function getRoute($url)
     {
-        foreach ($this->routes as $route) {
+        foreach ($this->routes as $route) :
 
-            if (($varsValues = $route->match($url)) !== false) {
+            if (($varsValues = $route->match($url)) !== false) :
 
-                if ($route->hasVars()) {
+                if ($route->hasVars()) :
                     $varsNames = $route->varsNames();
                     $listVars = [];
 
@@ -40,10 +40,10 @@ class Router
                     }
 
                     $route->setVars($listVars);
-                }
+                endif;
                 return $route;
-            }
-        }
+            endif;
+        endforeach;
         throw new \RuntimeException('Aucune route ne correspond à l\'URL', self::NO_ROUTE);
     }
 }

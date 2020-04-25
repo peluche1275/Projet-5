@@ -4,27 +4,27 @@
 $_SESSION['id'] = $account->id();
 ?>
 
-<?php if ($partieLancer == false) {
+<?php if ($partieLancer == false) :
 ?>
     <form method="post" action="#">
         <ul class="actions">
             <li><input type="submit" value="Commencer la partie" class="primary" name="start" /></li>
         </ul>
     </form>
-<?php
-}
-?>
+<?php endif ?>
 
 <?php if ($partieLancer) : ?>
     <div id="game">
-        <div id="dataGame">
+        <div class="lineGame">
             <p id="otages">Otages : </p>
             <p id="soldats">Soldats: </p>
             <p id="argents">Argents : </p>
         </div>
         <br>
-        <i id="precedent" class="fas fa-backward"></i>
-        <i id="suivant" class="fas fa-forward"></i>
+        <div class="lineGame">
+            <i id="precedent" class="fas fa-backward"></i>
+            <i id="suivant" class="fas fa-forward"></i>
+        </div>
 
         <span id="message1"></span>
         <span id="message2"></span>

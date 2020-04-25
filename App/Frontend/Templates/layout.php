@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="assets/css/noscript.css" />
   </noscript>
 </head>
+
 <body>
   <div id="wrapper">
     <header id="header">
@@ -27,20 +28,17 @@
       <nav>
         <ul>
           <li><a href="/">Accueil</a></li>
-          <?php if (!$user->isAuthenticated()) { ?>
+          <?php if (!$user->isAuthenticated()) : ?>
             <li><a href="/login">Connexion</a></li>
             <li><a href="/inscription">Inscription</a></li>
-          <?php } ?>
+          <?php endif ?>
           <?php if ($user->isAuthenticated()) : ?>
             <li><a href="/jeu">Jeu</a></li>
             <li><a href="/leaderboard">Leaderboard</a></li>
-            <li><a href="/moncompte">Mon compte</a></li>
+            <li><a href="/moncompte">Compte</a></li>
             <li><a href="/deconnexion">Déconnexion</a></li>
           <?php endif ?>
         </ul>
-        <?php if ($user->isAuthenticated()) : ?>
-
-        <?php endif ?>
       </nav>
     </header>
     <div id="main">

@@ -35,9 +35,9 @@ class ConnectionController extends BackController
                 if ($manager->verification($pseudo, "pseudo")) :
                     $this->app->user()->setFlash('Ce pseudo existe déjà!');
                     $this->app->httpResponse()->redirect('/inscription');
-                elseif($manager->TestPassword($request->postData('password')) == false) :
-                        $this->app->user()->setFlash('Mot de passe trop faible');
-                        $this->app->httpResponse()->redirect('/inscription');
+                elseif ($manager->TestPassword($request->postData('password')) == false) :
+                    $this->app->user()->setFlash('Mot de passe trop faible');
+                    $this->app->httpResponse()->redirect('/inscription');
                 elseif ($manager->verification($email, "email")) :
                     $this->app->user()->setFlash('Ce mail existe déjà!');
                     $this->app->httpResponse()->redirect('/inscription');
@@ -82,27 +82,27 @@ class ConnectionController extends BackController
         $account = new Account($manager->account($_SESSION['nameAccount']));
         $this->page->addVar('account', $account);
 
-        if (isset($_FILES['avatar']) and !empty($_FILES['avatar']['name'])) {
+        if (isset($_FILES['avatar']) and !empty($_FILES['avatar']['name'])) :
             $tailleMax = 2097152;
             $extensionsValides = array('jpg', 'jpeg', 'gif', 'png');
-            if ($_FILES['avatar']['size'] <= $tailleMax) {
+            if ($_FILES['avatar']['size'] <= $tailleMax) :
                 $extensionUpload = strtolower(substr(strrchr($_FILES['avatar']['name'], '.'), 1));
-                if (in_array($extensionUpload, $extensionsValides)) {
+                if (in_array($extensionUpload, $extensionsValides)) :
                     $chemin = 'membres/avatars/' . $account->id() . '.' . $extensionUpload;
                     $resultat = move_uploaded_file($_FILES['avatar']['tmp_name'], $chemin);
-                    if ($resultat) {
+                    if ($resultat) :
                         $manager->updateAvatar($account->id(), $extensionUpload);
                         $this->app->httpResponse()->redirect('/moncompte');
-                    } else {
+                    else :
                         $this->app->user()->setFlash('Il y a eu une erreur durant l\'important de votre photo de profil.');
-                    }
-                } else {
+                    endif;
+                else :
                     $this->app->user()->setFlash('Votre photo de profil doit être au format jpg, jpeg, gif ou png.');
-                }
-            } else {
+                endif;
+            else :
                 $this->app->user()->setFlash('Votre photo de profil ne doit pas dépasser 2Mo.');
-            }
-        }
+            endif;
+        endif;
     }
 
     public function executeDeconnexion()

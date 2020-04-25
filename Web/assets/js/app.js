@@ -22,9 +22,9 @@ function loadSaveAjax(choix, page) {
                     document.getElementById("precedent").style.display = "block";
                 }
 
-                if(response.lastpage==false){
+                if (response.lastpage == false) {
                     document.getElementById("precedent").style.display = "none";
-                    }
+                }
 
                 if (response.page == 0) {
                     document.getElementById("suivant").style.display = "none";
@@ -42,8 +42,8 @@ function loadSaveAjax(choix, page) {
                     document.getElementById("choix2").style.display = "block";
                 }
             }
-            else{
-                document.getElementById("game").innerHTML = "<p>FIN DU JEU </br> VOTRE SCORE EST DE : </br>"+ response.score +" POINTS</p>";
+            else {
+                document.getElementById("game").innerHTML = "<p>FIN DU JEU </br> VOTRE SCORE EST DE : </br>" + response.score + " POINTS</p>";
             }
         } else if (this.readyState == 4) {
             alert("Une Erreur est survenue...");

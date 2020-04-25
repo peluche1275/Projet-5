@@ -13,29 +13,23 @@ class GameController extends BackController
 
     public function executeGame()
     {
-        // Préparation du jeu //
         $this->page->addVar('partieLancer', false);
         $this->page->addVar('title', 'En Jeu');
         $manager = $this->managers->getManagerOf('Connection');
         $managerGame = $this->managers->getManagerOf('Game');
         $account = new Account($manager->account($_SESSION['nameAccount']));
-        $game = new Game($managerGame->game($account->id()));
         $this->page->addVar('account', $account);
-        $this->page->addVar('game', $game);
 
-        // Lancer le jeu //
         if (isset($_POST['start'])) :
             $managerGame->start($account->id());
             $this->app->httpResponse()->redirect('/jeu');
         endif;
 
-        // Réinitatiliser le jeu //
         if (isset($_POST['reset'])) :
             $managerGame->reset($account->id());
             $this->app->httpResponse()->redirect('/jeu');
         endif;
 
-        // Si la partie est lancer
         if ($managerGame->PartieLancer($account->id())) :
             $this->page->addVar('partieLancer', true);
         endif;
@@ -53,7 +47,7 @@ class GameController extends BackController
     }
 
     public function executeGameAjax()
-    {   
+    {
         $lastpage = true;
         $id = $_SESSION['id'];
         $manager = $this->managers->getManagerOf('Game');
@@ -71,19 +65,17 @@ class GameController extends BackController
             endif;
         else :
             $progression = $progression - 5 * $page;
-            $check = $progression-6;
-            if($check<0)
-            {
+            $check = $progression - 6;
+            if ($check < 0) :
                 $lastpage = false;
-            }
-
+            endif;
         endif;
 
         if ($manager->verificationAjax($progression)) :
             $choices = $manager->choicesAjax($progression);
             $data = $manager->getDataAjax($id);
             $messages = $manager->getMessagesAjax($progression);
-        elseif($page==0) :
+        elseif ($page == 0) :
             $choices = $manager->choicesAjax(1);
             $data = $manager->getDataAjax($id);
             $messages = $manager->getMessagesAjax(1);
@@ -116,8 +108,7 @@ class GameController extends BackController
             $message1 = $messages[4]['contenu'];
         endif;
 
-        $res = ["lastpage" => $lastpage,"score" => $score, "fin" => $fin, "page" => $page, "choix1" => $choices['choix1'], "choix2" => $choices['choix2'], "message5" => $message5, "message4" => $message4, "message3" => $message3, "message2" => $message2, "message1" => $message1, "otages" => $data['otages'], "soldats" => $data['soldats'], "argents" => $data['argents'], "progression" => $progression];
-
+        $res = ["lastpage" => $lastpage, "score" => $score, "fin" => $fin, "page" => $page, "choix1" => $choices['choix1'], "choix2" => $choices['choix2'], "message5" => $message5, "message4" => $message4, "message3" => $message3, "message2" => $message2, "message1" => $message1, "otages" => $data['otages'], "soldats" => $data['soldats'], "argents" => $data['argents'], "progression" => $progression];
         echo json_encode($res);
     }
 }

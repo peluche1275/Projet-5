@@ -9,7 +9,7 @@ abstract class Manager
     protected $dao;
 
     // CONSTRUCTOR //
-    
+
     public function __construct($dao)
     {
         $this->dao = $dao;

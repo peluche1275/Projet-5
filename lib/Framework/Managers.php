@@ -19,20 +19,20 @@ class Managers
     }
 
     // METHOD //
-    
+
     public function getManagerOf($module)
     {
-        if (!is_string($module) || empty($module)) 
-        {
-            throw new \InvalidArgumentException('Le module spécifié est invalide');
-        }
+        if (!is_string($module) || empty($module)) :
 
-        if (!isset($this->managers[$module])) 
-        {
-            $manager = '\\App\Frontend\Modules\\' . $module .'\\' . $module . 'Manager' . $this->api;
+            throw new \InvalidArgumentException('Le module spécifié est invalide');
+        endif;
+
+        if (!isset($this->managers[$module])) :
+
+            $manager = '\\App\Frontend\Modules\\' . $module . '\\' . $module . 'Manager' . $this->api;
 
             $this->managers[$module] = new $manager($this->dao);
-        }
+        endif;
 
         return $this->managers[$module];
     }

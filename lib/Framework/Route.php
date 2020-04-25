@@ -29,34 +29,34 @@ class Route
 
     public function match($url)
     {
-        if (preg_match('`^' . $this->url . '$`', $url, $matches)) {
+        if (preg_match('`^' . $this->url . '$`', $url, $matches)) :
             return $matches;
-        } else {
+        else :
             return false;
-        }
+        endif;
     }
 
     // SETTERS //
 
     public function setAction($action)
     {
-        if (is_string($action)) {
+        if (is_string($action)) :
             $this->action = $action;
-        }
+        endif;
     }
 
     public function setModule($module)
     {
-        if (is_string($module)) {
+        if (is_string($module)) :
             $this->module = $module;
-        }
+        endif;
     }
 
     public function setUrl($url)
     {
-        if (is_string($url)) {
+        if (is_string($url)) :
             $this->url = $url;
-        }
+        endif;
     }
 
     public function setVarsNames(array $varsNames)
@@ -70,7 +70,7 @@ class Route
     }
 
     // GETTER //
-    
+
     public function action()
     {
         return $this->action;

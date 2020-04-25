@@ -17,13 +17,13 @@ abstract class Entity implements \ArrayAccess
 
     public function __construct(array $donnees = [])
     {
-        if (!empty($donnees)) {
+        if (!empty($donnees)) :
             $this->hydrate($donnees);
-        }
+        endif;
     }
 
     // METHODS //
-    
+
     public function isNew()
     {
         return empty($this->id);
@@ -46,18 +46,18 @@ abstract class Entity implements \ArrayAccess
 
     public function offsetGet($var)
     {
-        if (isset($this->$var) && is_callable([$this, $var])) {
+        if (isset($this->$var) && is_callable([$this, $var])) :
             return $this->$var();
-        }
+        endif;
     }
 
     public function offsetSet($var, $value)
     {
         $method = 'set' . ucfirst($var);
 
-        if (isset($this->$var) && is_callable([$this, $method])) {
+        if (isset($this->$var) && is_callable([$this, $method])) :
             $this->$method($value);
-        }
+        endif;
     }
 
     public function offsetExists($var)

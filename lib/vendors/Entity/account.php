@@ -57,6 +57,4 @@ class Account extends Entity
     {
         $this->avatar = $avatar;
     }
-
-
 }
