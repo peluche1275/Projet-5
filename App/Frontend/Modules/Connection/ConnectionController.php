@@ -26,28 +26,44 @@ class ConnectionController extends BackController
         $this->page->addVar('title', 'Inscription');
 
         $manager = $this->managers->getManagerOf('Connection');
+        $manager->mustBeUnconnected($this->app);
 
         if ($request->postExists('pseudo')) :
             if ($request->postData('password') == $request->postData('password2')) :
                 $pseudo = htmlspecialchars($request->postData('pseudo'));
                 $password = password_hash($request->postData('password'), PASSWORD_DEFAULT);
                 $email = $request->postData('email');
+
                 if ($manager->verification($pseudo, "pseudo")) :
                     $this->app->user()->setFlash('Ce pseudo existe déjà!');
                     $this->app->httpResponse()->redirect('/inscription');
+
                 elseif ($manager->TestPassword($request->postData('password')) == false) :
+
                     $this->app->user()->setFlash('Mot de passe trop faible');
                     $this->app->httpResponse()->redirect('/inscription');
+
+                elseif (strlen($pseudo) > 10) :
+
+                    $this->app->user()->setFlash('Le pseudo est trop long');
+                    $this->app->httpResponse()->redirect('/inscription');
+
                 elseif ($manager->verification($email, "email")) :
+
                     $this->app->user()->setFlash('Ce mail existe déjà!');
                     $this->app->httpResponse()->redirect('/inscription');
+
                 elseif (filter_var($email, FILTER_VALIDATE_EMAIL) == false) :
+
                     $this->app->user()->setFlash('Adresse Mail invalide');
                     $this->app->httpResponse()->redirect('/inscription');
+
                 else :
+
                     $this->app->user()->setFlash('Inscription réalisée avec succès!');
                     $manager->inscription($pseudo, $password, $email);
                     $this->app->httpResponse()->redirect('/login');
+
                 endif;
             else :
                 $this->app->user()->setFlash('Les deux mots de passe ne correspondent pas');
@@ -60,6 +76,7 @@ class ConnectionController extends BackController
         $this->page->addVar('title', 'Inscription');
 
         $manager = $this->managers->getManagerOf('Connection');
+        $manager->mustBeUnconnected($this->app);
 
         if ($request->postExists('pseudo')) :
             $pseudo = $request->postData('pseudo');
@@ -77,8 +94,10 @@ class ConnectionController extends BackController
 
     public function executeMonCompte()
     {
+
         $this->page->addVar('title', 'Mon compte');
         $manager = $this->managers->getManagerOf('Connection');
+        $manager->mustBeConnected($this->app);
         $account = new Account($manager->account($_SESSION['nameAccount']));
         $this->page->addVar('account', $account);
 
@@ -94,7 +113,7 @@ class ConnectionController extends BackController
                         $manager->updateAvatar($account->id(), $extensionUpload);
                         $this->app->httpResponse()->redirect('/moncompte');
                     else :
-                        $this->app->user()->setFlash('Il y a eu une erreur durant l\'important de votre photo de profil.');
+                        $this->app->user()->setFlash('Il y a eu une erreur durant l\'importation de votre photo de profil.');
                     endif;
                 else :
                     $this->app->user()->setFlash('Votre photo de profil doit être au format jpg, jpeg, gif ou png.');

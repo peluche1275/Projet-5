@@ -1,3 +1,5 @@
+<?php !isset($_SESSION['id']) ?>
+
 <h2 class="major">JEU</h2>
 <p> Page du jeu de <?= $account->pseudo() ?> </p>
 <?php
@@ -49,6 +51,5 @@ $_SESSION['id'] = $account->id();
             <li><input type="submit" value="Relancer la partie" class="primary" name="reset" /></li>
         </ul>
     </form>
+    <script src="assets/js/app.js"></script>
 <?php endif ?>
-
-<script src="assets/js/app.js"></script>

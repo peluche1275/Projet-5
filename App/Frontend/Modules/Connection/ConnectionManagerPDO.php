@@ -3,6 +3,7 @@
 namespace App\Frontend\Modules\Connection;
 
 use \Framework\Manager;
+
 class ConnectionManagerPDO extends Manager
 {
     public function verification($pseudo, $champ)
@@ -11,6 +12,21 @@ class ConnectionManagerPDO extends Manager
         $q = $this->dao->query($sql)->fetch();
         return $q['bool'];
     }
+
+    public function mustBeConnected($app)
+    {
+        if (!isset($_SESSION['nameAccount']) || $_SESSION['nameAccount'] == "noaccount") :
+            $app->httpResponse()->redirect('login');
+        endif;
+    }
+
+    public function mustBeUnconnected($app)
+    {
+        if ($_SESSION['nameAccount'] != "noaccount") :
+            $app->httpResponse()->redirect('.');
+        endif;
+    }
+
 
     public function testPassword($mdp)
     {
@@ -34,6 +50,12 @@ class ConnectionManagerPDO extends Manager
             else :
                 $point = $point + 5;
                 $point_caracteres = 5;
+            endif;
+
+            $occurences = substr_count($mdp, $lettre);
+            if ($occurences > 1) :
+                $penalite = $occurences * 2;
+                $point = $point - $penalite;
             endif;
         endfor;
         $etape1 = $point / $longueur;

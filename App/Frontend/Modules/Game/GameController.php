@@ -4,7 +4,6 @@ namespace App\Frontend\Modules\Game;
 
 use \Framework\BackController;
 use \Entity\Account;
-use \Entity\Game;
 
 class GameController extends BackController
 {
@@ -16,6 +15,7 @@ class GameController extends BackController
         $this->page->addVar('partieLancer', false);
         $this->page->addVar('title', 'En Jeu');
         $manager = $this->managers->getManagerOf('Connection');
+        $manager->mustBeConnected($this->app);
         $managerGame = $this->managers->getManagerOf('Game');
         $account = new Account($manager->account($_SESSION['nameAccount']));
         $this->page->addVar('account', $account);
@@ -39,6 +39,7 @@ class GameController extends BackController
     {
         $this->page->addVar('title', 'Leaderboard');
         $manager = $this->managers->getManagerOf('Connection');
+        $manager->mustBeConnected($this->app);
         $account = new Account($manager->account($_SESSION['nameAccount']));
         $managerGame = $this->managers->getManagerOf('Game');
         $leaderboard = $managerGame->generateLeaderboard();
@@ -84,29 +85,10 @@ class GameController extends BackController
             $fin = false;
         endif;
 
-        // Récupération des messages //
-        $message5 = "";
-        $message4 = "";
-        $message3 = "";
-        $message2 = "";
-        $message1 = "";
-
-        if (isset($messages[0]['contenu'])) :
-            $message5 = $messages[0]['contenu'];
-        endif;
-
-        if (isset($messages[1]['contenu'])) :
-            $message4 = $messages[1]['contenu'];
-        endif;
-        if (isset($messages[2]['contenu'])) :
-            $message3 = $messages[2]['contenu'];
-        endif;
-        if (isset($messages[3]['contenu'])) :
-            $message2 = $messages[3]['contenu'];
-        endif;
-        if (isset($messages[4]['contenu'])) :
-            $message1 = $messages[4]['contenu'];
-        endif;
+        for ($i = 0; $i <= 5; $i++) :
+            $i2 = 5 - $i;
+            isset($messages[$i]['contenu']) ? ${"message" . $i2} = $messages[$i]['contenu'] : ${"message" . $i2} = "";
+        endfor;
 
         $res = ["lastpage" => $lastpage, "score" => $score, "fin" => $fin, "page" => $page, "choix1" => $choices['choix1'], "choix2" => $choices['choix2'], "message5" => $message5, "message4" => $message4, "message3" => $message3, "message2" => $message2, "message1" => $message1, "otages" => $data['otages'], "soldats" => $data['soldats'], "argents" => $data['argents'], "progression" => $progression];
         echo json_encode($res);
