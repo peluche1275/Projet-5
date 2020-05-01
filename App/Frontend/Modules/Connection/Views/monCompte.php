@@ -4,7 +4,7 @@
     <p>Identifiant : <span class="monCompteData"><?= $account->pseudo() ?></span></p>
     <p>Meilleur score :<span class="monCompteData"> <?= $account->score() ?></span> points</p>
 </div>
-<p>Photo de profil</p>
+<p>Photo de profil <br><span id="italic">2 Mo maximum / jpg, jpeg, gif, png</span></p>
 <div id="monCompteAvatar">
     <img id="avatar" src="<?= $account->avatar() ?>" alt="Votre Avatar">
     <form action="" method="POST" enctype="multipart/form-data">

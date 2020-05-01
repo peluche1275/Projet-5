@@ -99,6 +99,11 @@ input, select, textarea {
 	color: #bdc3c7;
 }
 
+#italic {
+	color: #979295;
+	font-style: italic;
+}
+
 #monCompteAvatar {
 	display: flex;
 	justify-content: space-around;
