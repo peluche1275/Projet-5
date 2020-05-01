@@ -127,6 +127,7 @@ class ConnectionController extends BackController
     public function executeDeconnexion()
     {
         $this->app->user()->setAuthenticated(false, "noaccount");
+        $this->app->user()->logout();
         $this->app->httpResponse()->redirect('.');
     }
 }

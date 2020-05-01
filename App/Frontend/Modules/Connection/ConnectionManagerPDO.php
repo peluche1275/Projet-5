@@ -15,15 +15,15 @@ class ConnectionManagerPDO extends Manager
 
     public function mustBeConnected($app)
     {
-        if (!isset($_SESSION['nameAccount']) || $_SESSION['nameAccount'] == "noaccount") :
+        if (!isset($_SESSION['nameAccount'])) :
             $app->httpResponse()->redirect('login');
         endif;
     }
 
     public function mustBeUnconnected($app)
     {
-        if ($_SESSION['nameAccount'] != "noaccount") :
-            $app->httpResponse()->redirect('.');
+        if (isset($_SESSION['nameAccount'])) :
+                $app->httpResponse()->redirect('.');
         endif;
     }
 

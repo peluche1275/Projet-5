@@ -47,6 +47,11 @@ class User
         $_SESSION['nameAccount'] = $login;
     }
 
+    public function logout()
+    {
+        unset($_SESSION['nameAccount']);
+    }
+
     public function setFlash($value)
     {
         $_SESSION['flash'] = $value;
