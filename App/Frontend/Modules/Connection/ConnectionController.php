@@ -48,6 +48,11 @@ class ConnectionController extends BackController
                     $this->app->user()->setFlash('Le pseudo est trop long');
                     $this->app->httpResponse()->redirect('/inscription');
 
+                elseif (strlen($pseudo) < 3) :
+
+                    $this->app->user()->setFlash('Le pseudo est trop court');
+                    $this->app->httpResponse()->redirect('/inscription');
+
                 elseif ($manager->verification($email, "email")) :
 
                     $this->app->user()->setFlash('Ce mail existe déjà!');

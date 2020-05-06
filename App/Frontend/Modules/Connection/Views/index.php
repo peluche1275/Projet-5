@@ -1,7 +1,7 @@
 <!-- USER NOT CONNECTED -->
 
 <?php if (!$user->isAuthenticated()) : ?>
-    <h2>Arrête les Boomerz </br> La bande de braqueurs du 3ème age</h2>
+    <h2>Arrête les Boomerz <br> La bande de braqueurs du 3ème age</h2>
     <p>Old men bandits est un jeu narratif où il faut tenter d'atteindre le meilleur score en prenant les bons choix ! </p>
 <?php endif ?>
 
