@@ -8,8 +8,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="description" content="Old men bandits, le jeu narratif des boomerz">
-  <meta name="keywords" content="Old men bandits, jeu, narratif">
+  <meta name="description" content="le fameux quizz de culture G!">
+  <meta name="keywords" content="quizz">
   <link rel="stylesheet" href="assets/css/main.css" />
   <noscript>
     <link rel="stylesheet" href="assets/css/noscript.css" />
@@ -21,8 +21,8 @@
     <header id="header">
       <div class="content">
         <div class="inner">
-          <h1><a href="/">Old men bandits</a></h1>
-          <p>Le jeu narratif qui parle des Boomerz</p>
+          <h1><a href="/">Quizz</a></h1>
+          <p>Quizz qui porte sur la culture</p>
         </div>
       </div>
       <nav>
@@ -33,7 +33,7 @@
             <li><a href="/inscription">Inscription</a></li>
           <?php endif ?>
           <?php if ($user->isAuthenticated()) : ?>
-            <li><a href="/jeu">Jeu</a></li>
+            <li><a href="/quizz">Quizz</a></li>
             <li><a href="/leaderboard">Leaderboard</a></li>
             <li><a href="/moncompte">Compte</a></li>
             <li><a href="/deconnexion">Déconnexion</a></li>

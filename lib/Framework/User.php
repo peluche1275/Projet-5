@@ -46,8 +46,8 @@ class User
         $_SESSION['auth'] = $authenticated;
         $_SESSION['nameAccount'] = $login;
     }
-
-    public function logout()
+  
+  	public function logout()
     {
         unset($_SESSION['nameAccount']);
     }

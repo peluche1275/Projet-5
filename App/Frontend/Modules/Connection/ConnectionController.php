@@ -8,12 +8,9 @@ use \Entity\Account;
 
 class ConnectionController extends BackController
 {
-
-    // METHODS //
-
     public function executeIndex()
     {
-        $this->page->addVar('title', 'Accueil du jeu');
+        $this->page->addVar('title', 'Accueil');
         if ($this->app->user()->isAuthenticated()) :
             $manager = $this->managers->getManagerOf('Connection');
             $account = new Account($manager->account($_SESSION['nameAccount']));
@@ -47,8 +44,7 @@ class ConnectionController extends BackController
 
                     $this->app->user()->setFlash('Le pseudo est trop long');
                     $this->app->httpResponse()->redirect('/inscription');
-
-                elseif (strlen($pseudo) < 3) :
+     			 elseif (strlen($pseudo) < 3) :
 
                     $this->app->user()->setFlash('Le pseudo est trop court');
                     $this->app->httpResponse()->redirect('/inscription');
@@ -132,7 +128,7 @@ class ConnectionController extends BackController
     public function executeDeconnexion()
     {
         $this->app->user()->setAuthenticated(false, "noaccount");
-        $this->app->user()->logout();
+      	$this->app->user()->logout();
         $this->app->httpResponse()->redirect('.');
     }
 }

@@ -7,9 +7,6 @@ function loadSaveAjax(choix, page) {
             if (response.fin) {
                 document.getElementById("choix1").innerHTML = response.choix1;
                 document.getElementById("choix2").innerHTML = response.choix2;
-                document.getElementById("otages").innerHTML = "Otages : " + response.otages;
-                document.getElementById("soldats").innerHTML = "Soldats : " + response.soldats;
-                document.getElementById("argents").innerHTML = "Argents : " + response.argents;
                 document.getElementById("message1").innerHTML = "<p>" + response.message1 + "</p>";
                 document.getElementById("message2").innerHTML = "<p>" + response.message2 + "</p>";
                 document.getElementById("message3").innerHTML = "<p>" + response.message3 + "</p>";
@@ -43,7 +40,7 @@ function loadSaveAjax(choix, page) {
                 }
             }
             else {
-                document.getElementById("game").innerHTML = "<p>FIN DU JEU </br> VOTRE SCORE EST DE : </br>" + response.score + " POINTS</p>";
+                document.getElementById("game").innerHTML = "<p>FIN DU QUIZZ</br> VOTRE SCORE EST DE : </br>" + response.score + " POINTS</p>";
             }
         } else if (this.readyState == 4) {
             alert("Une Erreur est survenue...");

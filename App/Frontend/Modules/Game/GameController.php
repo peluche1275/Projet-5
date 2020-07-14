@@ -13,7 +13,7 @@ class GameController extends BackController
     public function executeGame()
     {
         $this->page->addVar('partieLancer', false);
-        $this->page->addVar('title', 'En Jeu');
+        $this->page->addVar('title', 'Quizz !');
         $manager = $this->managers->getManagerOf('Connection');
         $manager->mustBeConnected($this->app);
         $managerGame = $this->managers->getManagerOf('Game');
@@ -22,12 +22,12 @@ class GameController extends BackController
 
         if (isset($_POST['start'])) :
             $managerGame->start($account->id());
-            $this->app->httpResponse()->redirect('/jeu');
+            $this->app->httpResponse()->redirect('/quizz');
         endif;
 
         if (isset($_POST['reset'])) :
             $managerGame->reset($account->id());
-            $this->app->httpResponse()->redirect('/jeu');
+            $this->app->httpResponse()->redirect('/quizz');
         endif;
 
         if ($managerGame->PartieLancer($account->id())) :
@@ -90,7 +90,7 @@ class GameController extends BackController
             isset($messages[$i]['contenu']) ? ${"message" . $i2} = $messages[$i]['contenu'] : ${"message" . $i2} = "";
         endfor;
 
-        $res = ["lastpage" => $lastpage, "score" => $score, "fin" => $fin, "page" => $page, "choix1" => $choices['choix1'], "choix2" => $choices['choix2'], "message5" => $message5, "message4" => $message4, "message3" => $message3, "message2" => $message2, "message1" => $message1, "otages" => $data['otages'], "soldats" => $data['soldats'], "argents" => $data['argents'], "progression" => $progression];
+        $res = ["lastpage" => $lastpage, "score" => $score, "fin" => $fin, "page" => $page, "choix1" => $choices['choix1'], "choix2" => $choices['choix2'], "message5" => $message5, "message4" => $message4, "message3" => $message3, "message2" => $message2, "message1" => $message1, "points" => $data['points'], "progression" => $progression];
         echo json_encode($res);
     }
 }

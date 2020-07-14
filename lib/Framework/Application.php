@@ -5,15 +5,12 @@ namespace Framework;
 abstract class Application
 {
 
-  // PROPERTIES //
-
   protected $httpRequest;
   protected $httpResponse;
   protected $name;
   protected $user;
   protected $config;
 
-  // CONSTRUCTOR //
 
   public function __construct()
   {
@@ -24,7 +21,6 @@ abstract class Application
     $this->name = '';
   }
 
-  // METHODS //
 
   public function getController()
   {

@@ -1,7 +1,7 @@
 <?php !isset($_SESSION['id']) ?>
 
-<h2 class="major">JEU</h2>
-<p> Page du jeu de <?= $account->pseudo() ?> </p>
+<h2 class="major">Quizz</h2>
+<p> Page du questionnaire de <?= $account->pseudo() ?> </p>
 <?php
 $_SESSION['id'] = $account->id();
 ?>
@@ -17,11 +17,6 @@ $_SESSION['id'] = $account->id();
 
 <?php if ($partieLancer) : ?>
     <div id="game">
-        <div class="lineGame">
-            <p id="otages">Otages : </p>
-            <p id="soldats">Soldats: </p>
-            <p id="argents">Argents : </p>
-        </div>
         <br>
         <div class="lineGame">
             <i id="precedent" class="fas fa-backward"></i>

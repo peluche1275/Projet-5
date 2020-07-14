@@ -7,8 +7,6 @@ use \Framework\Manager;
 class GameManagerPDO extends Manager
 {
 
-    // METHODS //
-
     public function PartieLancer($id)
     {
         $sql = 'SELECT lancer FROM partie WHERE idcompte ="' . $id . '"';
@@ -20,14 +18,14 @@ class GameManagerPDO extends Manager
 
     public function start($id)
     {
-        $sql = 'UPDATE partie SET otages = 50, soldats = 200, argents = 1000000, lancer = 1, progression = 1 WHERE idcompte ="' . $id . '"';
+        $sql = 'UPDATE partie SET points = 0, lancer = 1, progression = 1 WHERE idcompte ="' . $id . '"';
 
         $this->dao->exec($sql);
     }
 
     public function reset($id)
     {
-        $sql = 'UPDATE partie SET otages = 0, soldats = 0, argents = 0, lancer = 0, progression = 0 WHERE idcompte ="' . $id . '"';
+        $sql = 'UPDATE partie SET points = 0, lancer = 0, progression = 0 WHERE idcompte ="' . $id . '"';
 
         $this->dao->exec($sql);
     }
@@ -38,7 +36,6 @@ class GameManagerPDO extends Manager
         return $this->dao->query($sql)->fetchAll();
     }
 
-    // AJAX METHODS //
 
     public function userProgressAjax($id)
     {
@@ -55,26 +52,24 @@ class GameManagerPDO extends Manager
 
     public function applyChoiceAjax($choix, $progression, $id)
     {
-        $sql = 'SELECT o' . $choix . ',s' . $choix . ',a' . $choix . ' FROM scenario1 WHERE id =' . $progression;
+        $sql = 'SELECT a' . $choix . ' FROM scenario1 WHERE id =' . $progression;
         $q = $this->dao->query($sql)->fetch();
-        $sql2 = 'UPDATE partie SET otages = otages+' . $q['o' . $choix] . ', soldats = soldats+' . $q['s' . $choix] . ', argents = argents+' . $q['a' . $choix] . ' WHERE idcompte = ' . $id;
+        $sql2 = 'UPDATE partie SET points = points+' . $q['a' . $choix] . ' WHERE idcompte = ' . $id;
         $this->dao->exec($sql2);
     }
 
     public function getDataAjax($id)
     {
-        $sql = 'SELECT otages,soldats,argents FROM partie WHERE idcompte=' . $id;
+        $sql = 'SELECT points FROM partie WHERE idcompte=' . $id;
         return $this->dao->query($sql)->fetch();
     }
 
     public function scoreAjax($id)
     {
-        $sql = 'SELECT otages,soldats,argents FROM partie WHERE idcompte=' . $id;
+        $sql = 'SELECT points FROM partie WHERE idcompte=' . $id;
         $q = $this->dao->query($sql)->fetch();
-        $otages = $q['otages'];
-        $soldats = $q['soldats'];
-        $argents = $q['argents'];
-        $score = $argents + $soldats * 235 + $otages * 534;
+        $points = $q['points'];
+        $score = $points;
         return $score;
     }
 
