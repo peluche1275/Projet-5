@@ -1,7 +1,4 @@
 <?php !isset($_SESSION['id']) ?>
-
-<h2 class="major">Quizz</h2>
-<p> Page du questionnaire de <?= $account->pseudo() ?> </p>
 <?php
 $_SESSION['id'] = $account->id();
 ?>

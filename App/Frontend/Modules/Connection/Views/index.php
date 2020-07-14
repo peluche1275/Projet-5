@@ -1,6 +1,6 @@
 <?php if (!$user->isAuthenticated()) : ?>
-    <h2>Testez vos connaissances !</h2>
-    <p>Ce site est un quizz de culture générale !</p>
+    <h2>Merci de visiter le site!</h2>
+    <p>Ce site est un projet étudiant afin de coder en PHP et d'utiliser la technologie Ajax avec Javascript !</p>
 <?php endif ?>
 
 <?php if ($user->isAuthenticated()) : ?>

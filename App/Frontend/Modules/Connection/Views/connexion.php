@@ -1,4 +1,3 @@
-<h2 class="major">Connexion</h2>
 <form method="post">
 	<div class="fields">
 		<div class="field half">
